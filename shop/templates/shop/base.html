@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Online store of batteries and chargers{% endblock %}</title>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+</head>
+<body>
+  <nav class="nav" style="background-color: #e3ebec">
+      <ul class="nav">
+          <li class="nav-item">
+              <a class="nav-link" href="#">About Company</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Delivery</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Payment</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Discounts and promotions</a>
+          </li>
+      </ul>
+  </nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="/"><h3>Online store of batteries and chargers</h3></a>
+              </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <div id="cart">
+              Your cart is empty.
+          </div>
+      </div>
+  </nav>
+
+  <div id="content">
+      {% block content %}
+      {% endblock %}
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+         crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.js' %}" crossorigin="anonymous"></script>
+</body>
+</html>
