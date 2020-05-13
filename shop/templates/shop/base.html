@@ -36,7 +36,17 @@
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
           <div id="cart">
-              Your cart is empty.
+              {% with total_items=cart|length %}
+                  {% if total_items > 0 %}
+                      Your cart:
+                      <a href="{% url "cart:cart_detail" %}">
+                      {{ total_items }} item{{ total_items|pluralize }},
+                      {{ cart.get_total_price }} BYN
+                      </a>
+                  {% else %}
+                      Your cart is empty.
+                  {% endif %}
+              {% endwith %}
           </div>
       </div>
   </nav>
