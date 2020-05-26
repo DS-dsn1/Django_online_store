@@ -46,7 +46,7 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
-    guarantee = models.CharField(max_length=20,
+    guarantee = models.CharField(max_length=15,
                                  default='12 months')
     manufacturer = models.ForeignKey(Manufacturer,
                                      related_name='products',
@@ -55,7 +55,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('-created',)
         index_together = (('id', 'slug'),)
 
     def __str__(self):
@@ -64,3 +64,20 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail',
                        args=[self.id, self.slug])
+
+
+class Review(models.Model):
+    product = models.ForeignKey(Product,
+                                on_delete=models.CASCADE,
+                                related_name='reviews')
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return f'Review by {self.name} on {self.product}'

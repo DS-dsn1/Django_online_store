@@ -8,6 +8,10 @@
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 </head>
 <body>
+ <style>
+     body {background-image: url("static/img/background-img.jpg");}
+ </style>
+ <div class="container-xl">
   <nav class="nav" style="background-color: #e3ebec">
       <ul class="nav">
           <li class="nav-item">
@@ -24,7 +28,9 @@
           </li>
       </ul>
   </nav>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+ </div>
+  <div class="container-xl">
+  <nav class="navbar navbar-expand navbar-light bg-light">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item">
@@ -39,7 +45,7 @@
               {% with total_items=cart|length %}
                   {% if total_items > 0 %}
                       Your cart:
-                      <a href="{% url "cart:cart_detail" %}">
+                      <a href="{% url "cart:cart_detail" %}" class="badge badge-primary">
                       {{ total_items }} item{{ total_items|pluralize }},
                       {{ cart.get_total_price }} BYN
                       </a>
@@ -50,10 +56,15 @@
           </div>
       </div>
   </nav>
+  </div>
 
-  <div id="content">
+  <div id="content" class="container-xl">
       {% block content %}
       {% endblock %}
+  </div>
+
+  <div class="container-xl" id="footer">
+      <p>Here will be some usefull information.</p>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
          integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

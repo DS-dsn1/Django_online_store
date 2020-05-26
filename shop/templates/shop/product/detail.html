@@ -20,8 +20,35 @@
       <form action="{% url "cart:cart_add" product.id %}" method="post">
           {{ cart_product_form }}
           {% csrf_token %}
-          <input type="submit" value="Add to cart">
+          <input type="submit" value="Add to cart" class="btn btn-outline-primary">
       </form>
       {{ product.description|linebreaks }}
     </div>
+    {% with reviews.count as total_reviews %}
+        <h4>
+        {{ total_reviews }} review{{ total_reviews|pluralize }}
+        </h4>
+    {% endwith %}
+    {% for review in reviews %}
+        <div class="review">
+         <p class="info">
+             Review {{ forloop.counter }} by {{ review.name }}
+             {{ review.created }}
+         </p>
+         {{ review.body|linebreaks }}
+        </div>
+    {% empty %}
+        <p>There are no reviews yet.</p>
+    {% endfor %}
+
+    {% if new_review %}
+        <h4>Your review has been added.</h4>
+    {% else %}
+        <h4>Add new review</h4>
+        <form method="post">
+        {{ review_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Add review" class="btn btn-primary"></p>
+        </form>
+    {% endif %}
 {% endblock %}
