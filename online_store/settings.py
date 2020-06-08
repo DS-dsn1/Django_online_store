@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CART_SESSION_ID = 'cart'
+SITE_ID = 1
 
 # Application definition
 
@@ -41,6 +42,10 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    #forms
+    'crispy_forms',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +59,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'online_store.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
