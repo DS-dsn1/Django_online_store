@@ -1,28 +1,56 @@
 {% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   Checkout
 {% endblock %}
 
 {% block content %}
-  <h1>Checkout</h1>
-
-  <div class="order-info">
-    <h3>Your order</h3>
-    <ul>
-      {% for item in cart %}
-        <li>
-          {{ item.quantity }}x {{ item.product.name }}
-          <span>${{ item.total_price }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-    <p>Total: ${{ cart.get_total_price }}</p>
+  <br>
+  <div class="order-info row">
+    <div class="col-md-8">
+        <h2>Checkout</h2>
+        <form method="post" class="order-form">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.first_name|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.last_name|as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.email|as_crispy_field }}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.city|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.postal_code|as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.address|as_crispy_field }}
+            </div>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Place Order</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h3>Your order</h3>
+        <ul>
+          {% for item in cart %}
+            <li>
+              {{ item.quantity }} x {{ item.product.name }}
+              <span>${{ item.total_price }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <p><strong>Total:</strong> ${{ cart.get_total_price }}</p>
+    </div>
   </div>
+  <br>
 
-  <form method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" value="Place order"></p>
-    {% csrf_token %}
-  </form>
+
 {% endblock %}

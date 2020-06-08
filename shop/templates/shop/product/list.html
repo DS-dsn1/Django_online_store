@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block content %}
-   <div class="row">
-    <div id="sidebar" class="col-2">
+   <div class="row mx-xl-2">
+    <div id="sidebar" class="col-3 py-2 px-xl-2">
       <h3>Categories</h3>
       <ul>
           <li  {% if not category %}class="selected"{% endif %}>
@@ -22,25 +22,27 @@
       </ul>
     </div>
 
-    <div id="main" class="product-list col-9 ml-5" >
-      <h1>{% if category %}{{ category.name }}{% else %}Products
+    <div id="main" class="product-list col-9 py-2 px-xl-0" >
+      <h1 style="background-color: forestgreen;">{% if category %}{{ category.name }}{% else %}Products
       {% endif %}</h1>
-      <div class="row row-cols-1 row-cols-md-3">
+      <div class="row row-cols-1 row-cols-md-3 px-2">
         {% for product in products %}
            <div class="col-mb-3">
-            <div class="card">
+            <div class="card h-100">
              <a href="{{ product.get_absolute_url }}">
                 <img src="{% if product.image %}{{ product.image.url }}
                 {% else %}{% static "img/no_image.png" %}{% endif %}" class="card-img-top">
              </a>
-             <div class="card-body">
+             <div class="card-body py-3 px-3">
               <a href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
               <p class="card-text">{{ product.price }} BYN</p>
-              <form action="{% url "cart:cart_add" product.id %}" method="post">
+             </div>
+             <div class="card-footer text-center">
+                 <form action="{% url "cart:cart_add" product.id %}" method="post">
                   {{ cart_product_form }}
                   {% csrf_token %}
                   <input type="submit" value="Add to cart" class="btn btn-outline-primary">
-              </form>
+                 </form>
              </div>
             </div>
            </div>
