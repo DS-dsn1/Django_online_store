@@ -15,7 +15,7 @@
   <nav class="nav" style="background-color: #e3ebec">
       <ul class="nav">
           <li class="nav-item">
-              <a class="nav-link" href="#">About Company</a>
+              <a class="nav-link" href="{% url 'about_page' %}">About Company</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="#">Delivery</a>
@@ -34,12 +34,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                  <a class="nav-link" href="/"><h3>Online store of batteries and chargers</h3></a>
+                  <a class="nav-link" href="{% url 'shop:product_list' %}"><h3>Online store of batteries and chargers</h3></a>
               </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <form class="form-inline my-2 my-lg-0" action="{% url 'search:product_search'%}" method="get">
+              <input name = "query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                  <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                      <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                  </svg>Search</button>
           </form>
           <div id="cart">
               {% with total_items=cart|length %}

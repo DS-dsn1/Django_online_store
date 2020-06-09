@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [

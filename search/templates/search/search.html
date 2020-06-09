@@ -1,0 +1,50 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+    {% if query %}
+        <h2>Products containing "{{ query }}"</h2>
+        <h3>
+            {% with results.count as total_results %}
+                Found {{ total_results }} result{{ total_results|pluralize }}
+            {% endwith %}
+        </h3>
+        <div class="row row-cols-1 row-cols-md-3 px-2">
+            {% for product in results %}
+               <div class="col-mb-3">
+                <div class="card h-100">
+                 <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}
+                    {% else %}{% static "img/no_image.png" %}{% endif %}" class="card-img-top">
+                 </a>
+                 <div class="card-body py-3 px-3">
+                  <a href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
+                  <p class="card-text">{{ product.price }} BYN</p>
+                 </div>
+                 <div class="card-footer text-center">
+                     <form action="{% url "cart:cart_add" product.id %}" method="post">
+                      {{ cart_product_form }}
+                      {% csrf_token %}
+                      <input type="submit" value="Add to cart" class="btn btn-outline-primary">
+                     </form>
+                 </div>
+                </div>
+               </div>
+
+            {% empty %}
+                <p>There are no results for your query.</p>
+            {% endfor %}
+        </div>
+        <p><a href="{% url 'search:product_search' %}">Search again</a> </p>
+    {% else %}
+        <h1>Search for products</h1>
+        <form method="get">
+            {{ form|crispy }}
+            <button class="btn btn-success" type="submit">Search</button>
+        </form>
+        <br>
+    {% endif %}
+{% endblock %}

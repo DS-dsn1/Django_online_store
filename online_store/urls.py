@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from shop.sitemaps import ProductSitemap
+from .views import about_page
 
 sitemaps = {
     'products': ProductSitemap,
@@ -28,7 +29,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
-    path('', include('shop.urls', namespace='shop')),
+    path('search/', include('search.urls', namespace='search')),
+    path('about/', about_page, name='about_page'),
+    path('shop/', include('shop.urls', namespace='shop')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
 ]
